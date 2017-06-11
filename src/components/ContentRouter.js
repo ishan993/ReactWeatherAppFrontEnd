@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import glamorous from 'glamorous';
 import NoMatch from './NoMatch';
-import HomeComponent from './HomeComponent';
+import HomeComponent from '../containers/HomeComponent';
 
 const Content = glamorous.div({
-  marginTop: 40,
+  marginTop: 60,
   padding: 10
 });
 
