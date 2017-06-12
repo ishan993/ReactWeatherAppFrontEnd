@@ -11,7 +11,8 @@ import NavBar from './components/NavBar';
 
 const AppWrapper = glamorous.div({
     height: '100vh',
-    textAlign: 'center'
+    textAlign: 'center',
+    background: '#00acc1'
 });
 
 const customHistory = createBrowserHistory();

@@ -1,9 +1,8 @@
-import  React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import  React from 'react';
 import glamorous from 'glamorous';
-import { toggleBackground } from '../actions';
+import SearchBar from './SearchBar';
 
+/*
 const Button = glamorous.button({
     borderRadius: 0,
     padding: 10,
@@ -14,28 +13,21 @@ const Button = glamorous.button({
     outline: 'none',
     fontWeight: 100
 });
+*/
 
 const Wrapper = glamorous.div({
-    width: '60%',
-    margin: 'auto'
+    width: '90%',
+    margin: 'auto',
+    background: 'white'
 });
 
 
-class HomeComponent extends Component {
-
-    render(){
-        return (
-            <Wrapper>
-                Hello World!
-            </Wrapper>
-        );
-    }
-}
-
-
-
-HomeComponent.propTypes = {
-    toggleBackground: PropTypes.func.isRequired
+const HomeComponent = () => {
+    return (
+        <Wrapper>
+            <SearchBar />
+        </Wrapper>
+    );
 };
 
-export default connect( null, { toggleBackground })(HomeComponent);
+export default HomeComponent;

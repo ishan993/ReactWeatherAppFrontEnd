@@ -1,4 +1,5 @@
 export const TOGGLE_BACKGROUND = 'TOGGLE_BACKGROUND';
+export * from './places-actions';
 
 export const toggleBackground = () => {
     return ({
