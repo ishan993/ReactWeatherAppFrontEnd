@@ -10,6 +10,7 @@ const NavBarWrapper = glamorous.div({
     bottom: 0,
     borderBottom: '.3pt solid lightgrey',
     background: 'white',
+    zIndex: 9000,
     height: 60,
     display: 'flex',
     alignItems: 'center'

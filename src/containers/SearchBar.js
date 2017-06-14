@@ -6,12 +6,15 @@ import { fetchSuggestions } from '../actions';
 
 const wrapperStyle = {
     width: '100%',
-    background: 'papayawhip'
+    background: 'blue',
+    position: 'relative'
 };
 
 const inputStyle = {
     width: '100%',
+    margin: 'auto',
     fontSize: '24px',
+    boxSizing: 'border-box',
     padding: '10px',
     fontWeight: 100,
     background: 'aliceblue'
@@ -23,96 +26,57 @@ const menuStyle = {
   background: 'rgba(255, 255, 255, 0.9)',
   padding: '2px 0',
   fontSize: '20px',
-  position: 'fixed',
   overflow: 'auto',
-  maxHeight: '50%'
+  top: 0,
+  left: 0,
+  position: 'absolute',
+  maxHeight: '50%',
+  zIndex: 10001
 };
-
-const states = [
-    { abbr: 'AL', name: 'Alabama' },
-    { abbr: 'AK', name: 'Alaska' },
-    { abbr: 'AZ', name: 'Arizona' },
-    { abbr: 'AR', name: 'Arkansas' },
-    { abbr: 'CA', name: 'California' },
-    { abbr: 'CO', name: 'Colorado' },
-    { abbr: 'CT', name: 'Connecticut' },
-    { abbr: 'DE', name: 'Delaware' },
-    { abbr: 'FL', name: 'Florida' },
-    { abbr: 'GA', name: 'Georgia' },
-    { abbr: 'HI', name: 'Hawaii' },
-    { abbr: 'ID', name: 'Idaho' },
-    { abbr: 'IL', name: 'Illinois' },
-    { abbr: 'IN', name: 'Indiana' },
-    { abbr: 'IA', name: 'Iowa' },
-    { abbr: 'KS', name: 'Kansas' },
-    { abbr: 'KY', name: 'Kentucky' },
-    { abbr: 'LA', name: 'Louisiana' },
-    { abbr: 'ME', name: 'Maine' },
-    { abbr: 'MD', name: 'Maryland' },
-    { abbr: 'MA', name: 'Massachusetts' },
-    { abbr: 'MI', name: 'Michigan' },
-    { abbr: 'MN', name: 'Minnesota' },
-    { abbr: 'MS', name: 'Mississippi' },
-    { abbr: 'MO', name: 'Missouri' },
-    { abbr: 'MT', name: 'Montana' },
-    { abbr: 'NE', name: 'Nebraska' },
-    { abbr: 'NV', name: 'Nevada' },
-    { abbr: 'NH', name: 'New Hampshire' },
-    { abbr: 'NJ', name: 'New Jersey' },
-    { abbr: 'NM', name: 'New Mexico' },
-    { abbr: 'NY', name: 'New York' },
-    { abbr: 'NC', name: 'North Carolina' },
-    { abbr: 'ND', name: 'North Dakota' },
-    { abbr: 'OH', name: 'Ohio' },
-    { abbr: 'OK', name: 'Oklahoma' },
-    { abbr: 'OR', name: 'Oregon' },
-    { abbr: 'PA', name: 'Pennsylvania' },
-    { abbr: 'RI', name: 'Rhode Island' },
-    { abbr: 'SC', name: 'South Carolina' },
-    { abbr: 'SD', name: 'South Dakota' },
-    { abbr: 'TN', name: 'Tennessee' },
-    { abbr: 'TX', name: 'Texas' },
-    { abbr: 'UT', name: 'Utah' },
-    { abbr: 'VT', name: 'Vermont' },
-    { abbr: 'VA', name: 'Virginia' },
-    { abbr: 'WA', name: 'Washington' },
-    { abbr: 'WV', name: 'West Virginia' },
-    { abbr: 'WI', name: 'Wisconsin' },
-    { abbr: 'WY', name: 'Wyoming' }
-  ];
-
 
 function matchStateToTerm(state, value) {
   return (
-    state.name.toLowerCase().indexOf(value.toLowerCase()) !== -1
+    state.name.toLowerCase().replace(/[,]/g, '')
+        .indexOf(value.toLowerCase().replace(/[,]/g, '')) !== -1
   );
 }
 
-function sortStates(a, b, value) {
-  const aLower = a.name.toLowerCase();
-  const bLower = b.name.toLowerCase();
-  const valueLower = value.toLowerCase();
-  const queryPosA = aLower.indexOf(valueLower);
-  const queryPosB = bLower.indexOf(valueLower);
-  if (queryPosA !== queryPosB) {
-    return queryPosA - queryPosB;
+const sortStates = (a, b, value) => {
+    const aLower = a.name.toLowerCase().replace(/[,]/g, '');
+    const bLower = b.name.toLowerCase().replace(/[,]/g, '');
+    const valueLower = value.toLowerCase();
+    const queryPosA = aLower.indexOf(valueLower);
+    const queryPosB = bLower.indexOf(valueLower);
+
+    if (queryPosA !== queryPosB) {
+        return queryPosA - queryPosB;
   }
   return aLower < bLower ? -1 : 1;
-}
+};
+const renderMenuFunction = (items, value, style) => {
+  return <div style={{ ...style, ...this.menuStyle }} children={items}/>
+};
+// data for testing!
+const tempItems= [
+    { name: 'Empire State Building, 5th Avenue, New York, NY, United States' },
+    { name: 'Empire Boulevard, Webster, NY, United States' },
+    { name: 'Empire City Casino, Yonkers Avenue, Yonkers, NY, United States' },
+    { name: 'Empire Boulevard, Brooklyn, NY, United States' },
+    { name: 'Empire Road, Johannesburg, South Africa' }
+  ];
 
 class SearchBar extends Component {
+
     constructor(props) {
         super(props);
-        console.log('Constructor got these props: '+JSON.stringify(this.props));
         this.state={
             value: '',
-            items: []
+            items: this.props.placesSuggestions
         };
     }
-    componentDidMount(){
-        console.log('I got these props!'+JSON.stringify(this.props));
+    componentWillReceiveProps(){
+        this.setState({ items: this.props.placesSuggestions });
     }
-
     render(){
         return (
                 <Autocomplete
@@ -137,10 +101,14 @@ class SearchBar extends Component {
                     }
 
                     getItemValue={(item) => item.name}
+
                     items={this.state.items}
-        
                     value={this.state.value}
-                    onChange={(e) => this.setState({value: e.target.value})}
+                    onChange={(e) => {
+                        this.setState({value: e.target.value});
+                        e.target.value.length >= 2 ? this.props.fetchSuggestions(e.target.value) : '';
+                    }}
+                    renderMenu={renderMenuFunction}
 
                     onSelect={(val) => {
                         this.setState({value: val});
@@ -154,11 +122,11 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
-    fetchSuggestions: PropTypes.func.isRequired
+    fetchSuggestions: PropTypes.func.isRequired,
+    placesSuggestions: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state){
-    console.log("Here's the state: "+JSON.stringify(state.placesProps));
-    return {placesSuggestions: state.placesProps.placeSuggestions};
+    return {placesSuggestions: state.placesProps.placesSuggestions};
 }
 export default connect (mapStateToProps, { fetchSuggestions })(SearchBar);

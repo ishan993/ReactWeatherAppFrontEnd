@@ -15,13 +15,13 @@ export const fetchSuggestions = (value) => {
     return function(dispatch){
         fetchRequest.then((response)=>{
             console.log('I got these suggestions:'+
-                JSON.stringify(response.body));
+                JSON.stringify(response.data.places));
             dispatch({
                 type: REQUEST_SUGGESTIONS,
-                places: ['California', 'New Jersey']
+                places: response.data.places
             });
         }).catch((error)=>{
-            throw new Error(error.message);
+            throw new Error(error.message.predictions);
         });
     };
 };
