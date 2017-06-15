@@ -1,12 +1,11 @@
 import { REQUEST_WEATHER } from '../actions';
 
-const DEFAULT_STATE = { weather: {} };
+const DEFAULT_STATE = { forecast: {} };
 
 export default (state = DEFAULT_STATE, action) => {
     switch (action.type){
         case REQUEST_WEATHER:
-            console.log('Reducer weather: '+JSON.stringify(action.weather));
-            break;
+            return ({ ...state, forecast: action.forecast });
         default:
             return state;
     }

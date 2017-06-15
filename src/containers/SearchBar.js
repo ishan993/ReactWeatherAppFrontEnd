@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Autocomplete from 'react-autocomplete';
-import { fetchSuggestions } from '../actions';
+import { fetchSuggestions, fetchWeather } from '../actions';
 
 const wrapperStyle = {
     width: '100%',
@@ -35,9 +35,9 @@ const menuStyle = {
 };
 
 function matchStateToTerm(state, value) {
+    console.log('hitting me!');
   return (
-    state.name.toLowerCase().replace(/[,]/g, '')
-        .indexOf(value.toLowerCase().replace(/[,]/g, '')) !== -1
+    state.name.toLowerCase().indexOf(value.toLowerCase()) !== 0
   );
 }
 
@@ -110,11 +110,11 @@ class SearchBar extends Component {
                     }}
                     renderMenu={renderMenuFunction}
 
-                    onSelect={(val) => {
+                    onSelect={(val, item) => {
                         this.setState({value: val});
+                        this.props.fetchWeather(item.place_id);
                     }}
 
-                    shouldItemRender={matchStateToTerm}
                     sortItems={sortStates}
                 />
         );
@@ -123,10 +123,11 @@ class SearchBar extends Component {
 
 SearchBar.propTypes = {
     fetchSuggestions: PropTypes.func.isRequired,
+    fetchWeather: PropTypes.func.isRequired,
     placesSuggestions: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state){
     return {placesSuggestions: state.placesProps.placesSuggestions};
 }
-export default connect (mapStateToProps, { fetchSuggestions })(SearchBar);
+export default connect (mapStateToProps, { fetchSuggestions, fetchWeather })(SearchBar);

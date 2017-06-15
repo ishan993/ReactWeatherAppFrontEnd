@@ -1,23 +1,19 @@
 import axios from 'axios';
-import config from '../config';
 
-const ROOT_URL = 'https://api.darksky.net/forecast/'+config.WEATHER_API_KEY+'/';
+const ROOT_URL = 'http://localhost:1337/weather';
 export const REQUEST_WEATHER = 'REQUEST_WEATHER';
 
-export const fetchWeather = (latlngObject) => {
-    latlngObject={
-        lat: 42.3601,
-        lng: -71.0589
-    };
-    const URL = ROOT_URL+latlngObject.lat+','+latlngObject.lng;
-    const fetchRequest = axios.get(URL);
+export const fetchWeather = (placeId) => {
+    const URL = ROOT_URL;
+    const fetchRequest = axios.get(URL, {
+         params: { placeId }
+    });
 
     return function(dispatch){
         fetchRequest.then((response) => {
-            console.log('here is the weather report:'+JSON.stringify(response.data));
-            dispatch({ type: REQUEST_WEATHER, forecast: response.data });
+            dispatch({ type: REQUEST_WEATHER, forecast: response.data.result });
         }).catch((error) => {
-            console.log('I got this error: '+error.message);
+            throw new Error(error.message);
         });
     };
 };

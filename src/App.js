@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import logo from './logo.svg';
 import './App.css';
 import {  BrowserRouter } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
