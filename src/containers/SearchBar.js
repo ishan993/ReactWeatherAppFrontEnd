@@ -16,8 +16,7 @@ const inputStyle = {
     fontSize: '24px',
     boxSizing: 'border-box',
     padding: '10px',
-    fontWeight: 100,
-    background: 'aliceblue'
+    fontWeight: 100
 };
 
 const menuStyle = {
@@ -56,14 +55,6 @@ const sortStates = (a, b, value) => {
 const renderMenuFunction = (items, value, style) => {
   return <div style={{ ...style, ...this.menuStyle }} children={items}/>
 };
-// data for testing!
-const tempItems= [
-    { name: 'Empire State Building, 5th Avenue, New York, NY, United States' },
-    { name: 'Empire Boulevard, Webster, NY, United States' },
-    { name: 'Empire City Casino, Yonkers Avenue, Yonkers, NY, United States' },
-    { name: 'Empire Boulevard, Brooklyn, NY, United States' },
-    { name: 'Empire Road, Johannesburg, South Africa' }
-  ];
 
 class SearchBar extends Component {
 
@@ -73,10 +64,13 @@ class SearchBar extends Component {
             value: '',
             items: this.props.placesSuggestions
         };
+        this.props.fetchWeather(this.props.placeId);
     }
+
     componentWillReceiveProps(){
         this.setState({ items: this.props.placesSuggestions });
     }
+
     render(){
         return (
                 <Autocomplete
@@ -124,10 +118,14 @@ class SearchBar extends Component {
 SearchBar.propTypes = {
     fetchSuggestions: PropTypes.func.isRequired,
     fetchWeather: PropTypes.func.isRequired,
-    placesSuggestions: PropTypes.array.isRequired
+    placesSuggestions: PropTypes.array.isRequired,
+    placeId: PropTypes.string.isRequired
 };
 
 function mapStateToProps(state){
-    return {placesSuggestions: state.placesProps.placesSuggestions};
+    return {
+            placesSuggestions: state.placesProps.placesSuggestions,
+            placeId: state.placesProps.placeId
+        };
 }
 export default connect (mapStateToProps, { fetchSuggestions, fetchWeather })(SearchBar);

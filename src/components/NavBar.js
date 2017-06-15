@@ -13,7 +13,8 @@ const NavBarWrapper = glamorous.div({
     zIndex: 9000,
     height: 60,
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    boxShadow: '1px 1px 1px rgba(0,0,0,0.1)'
 });
 
 const StyledLink = glamorous(Link)({

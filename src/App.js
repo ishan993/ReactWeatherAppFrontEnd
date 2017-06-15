@@ -9,7 +9,6 @@ import glamorous from 'glamorous';
 import NavBar from './components/NavBar';
 
 const AppWrapper = glamorous.div({
-    height: '100vh',
     textAlign: 'center',
     background: '#00acc1'
 });
