@@ -9,8 +9,7 @@ import glamorous from 'glamorous';
 import NavBar from './components/NavBar';
 
 const AppWrapper = glamorous.div({
-    textAlign: 'center',
-    background: '#00acc1'
+    textAlign: 'center'
 });
 
 const customHistory = createBrowserHistory();
