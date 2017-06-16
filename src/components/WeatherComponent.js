@@ -6,7 +6,7 @@ import glamorous from 'glamorous';
 import { fetchWeather } from '../actions';
 
 const WeatherWrapper = glamorous.div({
-    '@media(min-width: 800px)': {
+    '@media(min-width: 840px)': {
         margin: '10px 0 10px 0',
         display: 'flex',
         justifyContent: 'space-between'
@@ -17,16 +17,15 @@ const WeatherWrapper = glamorous.div({
 });
 
 const ImageWrapper = glamorous.div({
-    '@media(min-width: 800px)': {
-        flexBasis: '40%'
+    '@media(min-width: 840px)': {
+        flexBasis: '35%'
     },
     padding: 10
 });
 
 const ContentWrapper = glamorous.div({
-    '@media(min-width: 800px)': {
-        flexBasis: '50%',
-        padding: 20
+    '@media(min-width: 840px)': {
+        flexBasis: '60%'
     },
     padding: 10,
     background: 'white',
@@ -100,31 +99,20 @@ const DailyItem = (dailyData) => {
         );
 };
 
-const renderTime = (timeStamp) => {
-    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    options.timeZone = 'UTC';
-    options.timeZoneName = 'short';
-    const date =  new Date(timeStamp*1000);
-
-    return date.toLocaleDateString('en-US', options).toString();
-};
-
 class WeatherComponent extends Component{
 
     constructor(props){
         super(props);
-        console.log('I got these weather props: '+JSON.stringify(props));
     }
 
     render() {
-        const { address, currentWeather, daily } = this.props.weatherProps;
-        {console.log('I got updated props: '+JSON.stringify(this.props));}
+        const { lat, lng, address, currentWeather, daily } = this.props.weatherProps;
         return (
             <div>
                 <WeatherWrapper>
                     <ImageWrapper>
                         <StyledH1>
-                            {renderTime(currentWeather.time)}
+                            {currentWeather.time}
                         </StyledH1>
                         <StyledImage src={currentWeather.icon} />
                             <StyledH1>
@@ -155,7 +143,7 @@ class WeatherComponent extends Component{
                     </ContentWrapper>
                 </WeatherWrapper>
                 <ButtonWrapper>
-                    <Link to='/history'> What?</Link>
+                    <Link to={{pathname:'/timecapsule', search: '?lat='+lat+'&lng='+lng}}> What?</Link>
                 </ButtonWrapper>
             </div>
         );

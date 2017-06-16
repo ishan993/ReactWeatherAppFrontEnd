@@ -5,7 +5,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-
+import { fetchTimeCaps } from '../actions';
+import ChartsComponent from './ChartsComponent';
 
 const StyledDatePicker = glamorous(DatePicker)({
     width: '80%',
@@ -25,29 +26,21 @@ const InputWrapper = glamorous.div({
     alignItems: 'center'
 });
 
-const data = [
-      {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
-      {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
-      {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
-      {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
-      {name: 'Page E', uv: 1890, pv: 4800, amt: 2181},
-      {name: 'Page F', uv: 2390, pv: 3800, amt: 2500},
-      {name: 'Page G', uv: 3490, pv: 4300, amt: 2100}
-];
-
 class TimeCapsule extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
-            startDate: moment(),
-            width: 200
+            startDate: moment()
         };
     }
     onChange(date){
         this.setState({ startDate: date});
+        const tempDate = new Date(date).getTime()/1000;
+        this.props.fetchTimeCaps(this.props.location.search+'&date='+tempDate);
     }
 
     render() {
+        const { timeCapsuleObj } = this.props;
         return (
             <CapsWrapper>
                 <InputWrapper>
@@ -63,18 +56,21 @@ class TimeCapsule extends Component {
                         dropdownMode="select"
                     />
                 </InputWrapper>
-                
+                {timeCapsuleObj.hourly ? console.log('------->>>>>>>>>>>'): ''}
+                <ChartsComponent data={timeCapsuleObj.hourly}/>
             </CapsWrapper>
         );
     }
 }
 
 TimeCapsule.propTypes = {
-    timeCapsuleObj: PropTypes.object.isRequired
+    timeCapsuleObj: PropTypes.object.isRequired,
+    fetchTimeCaps: PropTypes.func.isRequired,
+    location: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => {
     return ({timeCapsuleObj: state.weatherProps.timeCapsuleObj});
 };
 
-export default connect(mapStateToProps)(TimeCapsule);
+export default connect(mapStateToProps, { fetchTimeCaps })(TimeCapsule);
