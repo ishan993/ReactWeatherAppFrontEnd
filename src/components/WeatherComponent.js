@@ -4,23 +4,19 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import glamorous from 'glamorous';
 import { fetchWeather } from '../actions';
+import DayWeatherComponent from './DayWeatherComponent';
+import DailyItem from './DailyItem';
 
 const WeatherWrapper = glamorous.div({
     '@media(min-width: 840px)': {
-        margin: '10px 0 10px 0',
+        margin: '10px 0 0 0',
         display: 'flex',
         justifyContent: 'space-between'
     },
-    margin: '10px 0 10px 0',
+    borderBottom: '0.3pt solid lightgrey',
+    margin: '10px 0 0 0',
     padding: 20,
     background: 'white'
-});
-
-const ImageWrapper = glamorous.div({
-    '@media(min-width: 840px)': {
-        flexBasis: '35%'
-    },
-    padding: 10
 });
 
 const ContentWrapper = glamorous.div({
@@ -32,73 +28,28 @@ const ContentWrapper = glamorous.div({
     borderLeft: '.3pt solid lightgrey'
 });
 
-const StyledImage = glamorous.img({
-    width: '100%',
-    height: 'auto',
-    maxWidth: 300,
-    maxHeight: 300,
-    padding: 10
-});
-
-const StyledIcon = glamorous.img({
-    flexBasis: '20%',
-    width: '100%',
-    height: 'auto',
-    maxWidth: 45,
-    maxHeight: 45
-});
-
 const StyledH1 = glamorous.h1({
     fontWeight: 100,
     borderBottom: '0.3pt solid lightgrey',
     padding: 5
 });
 
-const Bolder = glamorous.span({
-    fontSize: 18
-});
-
-const ListItem = glamorous.div({
-    borderBottom: '0.3pt solid lightgrey',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    width: '90%',
-    margin: 'auto',
-    fontSize: 20,
-    padding: 5,
-    textAlign: 'justify'
-});
-
-const flexSpan = glamorous({
-    width: '25%',
-    textAlign: 'left'
-});
 const ButtonWrapper = glamorous.div({
-    width: '100%',
+    background: 'white',
+    fontSize: 20,
+    padding: 10,
     display: 'flex',
     justifyContent: 'center'
 });
 
-const DailyItem = (dailyData) => {
-    return (
-        <ListItem>
-            <StyledIcon src={dailyData.icon} />
-            <flexSpan>
-                {dailyData.day}
-            </flexSpan>
-            <flexSpan>
-                Min:{' '+dailyData.temperatureMin+' '}
-                &#176;
-            </flexSpan>
-            <flexSpan>
-                Max: {' '+dailyData.temperatureMax+' '}
-                &#176;
-            </flexSpan>
-        </ListItem>
-        );
-};
-
+const StyledLink = glamorous(Link)({
+    padding: 10,
+    width: 200,
+    color: 'white',
+    background: '#65DEF1',
+    textDecoration: 'none',
+    borderRadius: 4
+});
 class WeatherComponent extends Component{
 
     constructor(props){
@@ -110,40 +61,16 @@ class WeatherComponent extends Component{
         return (
             <div>
                 <WeatherWrapper>
-                    <ImageWrapper>
-                        <StyledH1>
-                            {currentWeather.time}
-                        </StyledH1>
-                        <StyledImage src={currentWeather.icon} />
-                            <StyledH1>
-                                {currentWeather.temperature+' '}
-                                &#8457;
-                                {'  '+currentWeather.summary}
-                            </StyledH1>
-                            <ListItem>
-                                <span>
-                                    <Bolder>Wind</Bolder> {currentWeather.windSpeed}mph
-                                </span>
-                                <span>
-                                    <Bolder>humidity</Bolder> {currentWeather.humidity}%
-                                </span>
-                                <span>
-                                    <Bolder>Visibility</Bolder> {currentWeather.visibility}
-                                </span>
-                                <span>
-                                    <Bolder>Dewpoint</Bolder> {currentWeather.dewPoint}
-                                </span>
-                            </ListItem>
-                    </ImageWrapper>
+                    <DayWeatherComponent currentWeather={currentWeather} />
                     <ContentWrapper>
                         <StyledH1>
                             {address}
                         </StyledH1>
-                        { daily.data.map((data)=> {return DailyItem(data);})}
+                        { daily.data.map((data)=> { return (<DailyItem key={data.time} dailyData={data}/>);})}
                     </ContentWrapper>
                 </WeatherWrapper>
                 <ButtonWrapper>
-                    <Link to={{pathname:'/timecapsule', search: '?lat='+lat+'&lng='+lng}}> What?</Link>
+                    <StyledLink to={{pathname:'/timecapsule', search: '?lat='+lat+'&lng='+lng}}> Time Capsule</StyledLink>
                 </ButtonWrapper>
             </div>
         );

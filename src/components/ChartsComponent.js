@@ -5,7 +5,9 @@ import SingleChart from './SingleChart';
 
 const ChartsWrapper = glamorous.div({
     margin: 'auto',
-    width: '100%'
+    width: '100%',
+    textAlign: 'left',
+    fontWeight: 100
 });
 
 const ChartsComponent = (props) => {

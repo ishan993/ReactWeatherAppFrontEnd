@@ -7,6 +7,8 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import { fetchTimeCaps } from '../actions';
 import ChartsComponent from './ChartsComponent';
+import DayWeatherComponent from './DayWeatherComponent';
+import MapComponent from './MapComponent';
 
 const StyledDatePicker = glamorous(DatePicker)({
     width: '80%',
@@ -24,6 +26,13 @@ const CapsWrapper = glamorous.div({
 const InputWrapper = glamorous.div({
     display: 'flex',
     alignItems: 'center'
+});
+
+const CurrentWeatherStatsWrapper = glamorous.div({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    background: 'papayawhip'
 });
 
 class TimeCapsule extends Component {
@@ -56,7 +65,10 @@ class TimeCapsule extends Component {
                         dropdownMode="select"
                     />
                 </InputWrapper>
-                {timeCapsuleObj.hourly ? console.log('------->>>>>>>>>>>'): ''}
+                 <CurrentWeatherStatsWrapper>
+                    { timeCapsuleObj.daily ? <DayWeatherComponent currentWeather={timeCapsuleObj.daily} /> : ''}
+                    {timeCapsuleObj.daily ? <MapComponent/> : ''}
+                </CurrentWeatherStatsWrapper>
                 <ChartsComponent data={timeCapsuleObj.hourly}/>
             </CapsWrapper>
         );
