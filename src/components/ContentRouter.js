@@ -4,6 +4,7 @@ import glamorous from 'glamorous';
 import NoMatch from './NoMatch';
 import HomeComponent from '../containers/HomeComponent';
 import TimeCapsule from '../components/TimeCapsule';
+import HistoryComponent from './HistoryComponent';
 
 const Content = glamorous.div({
   marginTop: 60,
@@ -15,7 +16,8 @@ const ContentRouter = () => (
     <Switch>
       <Route path="/" exact={true} component={HomeComponent}/>
       <Route path="/timecapsule" exact={true} component={TimeCapsule}/>
-      <Route component={NoMatch} />
+      <Route path="/history" exact={true} component={HistoryComponent}/>
+      <Route component={NoMatch}/>
     </Switch>
   </Content>
 );

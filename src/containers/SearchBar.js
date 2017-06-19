@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Autocomplete from 'react-autocomplete';
-import moment from 'moment';
-import { fetchSuggestions, fetchWeather, saveSearchHistory } from '../actions';
+import { fetchSuggestions, fetchWeather } from '../actions';
 
 const wrapperStyle = {
     width: '100%',
@@ -107,7 +106,6 @@ class SearchBar extends Component {
                     onSelect={(val, item) => {
                         this.setState({value: val});
                         this.props.fetchWeather(item.place_id);
-                        this.props.saveSearchHistory({name: val, id: item.place_id, time: moment().format('lll')});
                     }}
 
                     sortItems={sortStates}
@@ -130,4 +128,4 @@ function mapStateToProps(state){
             placeId: state.placesProps.placeId
         };
 }
-export default connect (mapStateToProps, { fetchSuggestions, fetchWeather, saveSearchHistory })(SearchBar);
+export default connect (mapStateToProps, { fetchSuggestions, fetchWeather })(SearchBar);

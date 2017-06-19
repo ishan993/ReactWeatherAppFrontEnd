@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import glamorous from 'glamorous';
-import { fetchWeather } from '../actions';
+import { fetchWeather, saveSearchHistory } from '../actions';
+import moment from 'moment';
 import DayWeatherComponent from './DayWeatherComponent';
 import DailyItem from './DailyItem';
 
@@ -52,6 +53,16 @@ const StyledLink = glamorous(Link)({
 });
 class WeatherComponent extends Component{
 
+    componentWillMount(){
+        this.props.saveSearchHistory({
+            placeId: this.props.weatherProps.placeId,
+            address: this.props.weatherProps.address,
+            lat: this.props.weatherProps.lat,
+            lng: this.props.weatherProps.lng,
+            time: moment().format('L')
+        });
+    }
+
     render() {
         const { lat, lng, address, currentWeather, daily } = this.props.weatherProps;
         return (
@@ -75,13 +86,14 @@ class WeatherComponent extends Component{
 
 WeatherComponent.propTypes = {
     fetchWeather: PropTypes.func.isRequired,
-    weatherProps: PropTypes.object.isRequired
+    weatherProps: PropTypes.object.isRequired,
+    saveSearchHistory: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
     return {
         weatherProps: state.weatherProps.forecast
-      };
+    };
 };
 
-export default connect(mapStateToProps, { fetchWeather })(WeatherComponent);
+export default connect(mapStateToProps, { fetchWeather, saveSearchHistory })(WeatherComponent);
