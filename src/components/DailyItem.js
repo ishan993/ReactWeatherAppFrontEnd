@@ -11,7 +11,7 @@ const StyledIcon = glamorous.img({
 });
 
 const flexSpan = glamorous({
-    width: '25%',
+    width: '20%',
     textAlign: 'left'
 });
 
@@ -21,11 +21,11 @@ const ListItem = glamorous.div({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-around',
-    width: '90%',
+    width: '95%',
     margin: 'auto',
-    fontSize: 20,
-    padding: 5,
-    textAlign: 'justify'
+    fontSize: '1.1rem',
+    padding: 3,
+    textAlign: 'left'
 });
 
 const DailyItem = (props) => {

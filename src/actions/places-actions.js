@@ -23,8 +23,6 @@ export const fetchSuggestions = (value) => {
     });
     return function(dispatch){
         fetchRequest.then((response)=>{
-            console.log('I got these suggestions:'+
-                JSON.stringify(response.data));
             dispatch({
                 type: REQUEST_SUGGESTIONS,
                 places: response.data.result
@@ -45,11 +43,24 @@ export const fetchSearchHistory = () => {
 };
 
 export const saveSearchHistory = (searchObj) => {
-    let searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
+    console.log('trying to save: '+JSON.stringify(searchObj));
+    let searchHistory = localStorage.getItem('searchHistory');
+
     if (!searchHistory)
         searchHistory = [];
-    const { address } = searchObj;
+    else
+        searchHistory = JSON.parse(searchHistory);
 
-    searchHistory.push({address: searchObj});
-    localStorage('searchHistory', JSON.stringify(searchHistory));
+    const { id } = searchObj;
+    delete searchObj.id;
+    const tempItem = {};
+    tempItem[id] = searchObj;
+    if (!searchHistory[id])
+        searchHistory.push(tempItem);
+    else
+        searchHistory[id].time = searchObj.time;
+
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+    return ({ type: REQUEST_SEARCH_HISTORY, searchHistory: searchHistory});
+
 };

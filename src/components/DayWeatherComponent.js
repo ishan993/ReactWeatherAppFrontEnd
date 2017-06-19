@@ -19,7 +19,7 @@ const StyledImage = glamorous.img({
 });
 
 const Bolder = glamorous.span({
-    fontSize: 18
+    fontSize: '1.01rem'
 });
 
 // Duplicted. Don't forget to remove it!
@@ -28,7 +28,7 @@ const ListItem = glamorous.div({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-around',
-    width: '90%',
+    width: '100%',
     margin: 'auto',
     fontSize: 20,
     padding: 5,
@@ -36,7 +36,7 @@ const ListItem = glamorous.div({
 });
 
 // Duplicated. Don't forget to remove it!
-const StyledH1 = glamorous.h1({
+const StyledH3 = glamorous.h3({
     fontWeight: 100,
     borderBottom: '0.3pt solid lightgrey',
     padding: 5
@@ -46,15 +46,15 @@ const DayWeatherComponent = (props) => {
     const { currentWeather } = props;
     return (
         <ImageWrapper>
-                <StyledH1>
+                <StyledH3>
                     {currentWeather.time}
-                </StyledH1>
+                </StyledH3>
                 <StyledImage src={currentWeather.icon} />
-                <StyledH1>
+                <StyledH3>
                     {currentWeather.temperature+' '}
                     &#8457;
                     {'  '+currentWeather.summary}
-                </StyledH1>
+                </StyledH3>
             <ListItem>
                 <span>
                     <Bolder>Wind</Bolder> {currentWeather.windSpeed}mph

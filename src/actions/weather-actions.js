@@ -8,9 +8,7 @@ export const LOADING_DATA = 'LOADING_DATA';
 
 export const fetchWeather = (placeId) => {
     const URL = ROOT_URL;
-    const fetchRequest = axios.get(URL, {
-         params: { placeId }
-    });
+    const fetchRequest = axios.get(URL, { params: {placeId} });
 
     return function(dispatch) {
         dispatch({ type: LOADING_DATA });

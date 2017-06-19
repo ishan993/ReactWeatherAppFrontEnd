@@ -8,7 +8,7 @@ export default (state = DEFAULT_STATE, action) => {
         case REQUEST_WEATHER:
             return ({ ...state, forecast: action.forecast });
         case REQUEST_TIME_CAPSULE:
-            return ({ ...state. timeCapsuleObj,timeCapsuleObj: action.timeCapsuleObj });
+            return ({ ...state.timeCapsuleObj, timeCapsuleObj: action.timeCapsuleObj });
         default:
             return state;
     }

@@ -1,28 +1,81 @@
+html{
+  font-size: 14px;
+}
 body{
   box-sizing: border-box;
+  font-family: 'title-font';
   margin: 0;
   padding: 0;
   background: #65DEF1;
 }
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+h1 {
+	font-size: 3rem;
 }
-.Autocomplete{
-  font-size: 24px; 
+h2 {
+	font-size: 2rem;
 }
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+h3{
+    margin:0;
+    padding: 0;
+    margin-bottom: 2px;
+    font-weight: 200;
+    font-size: 1.5rem;
+}
+h4{
+    margin:0;
+    padding: 0;
+    margin-bottom: 2px;
+    font-weight: 200;
+    font-size: 1.3rem;
+}
+p, li {
+  margin-top: 0;
+  font-weight: 200;
+	font-size: 1rem;
 }
 
-.App-intro {
-  font-size: large;
+@media screen and (min-width: 500px){
+  html{
+    font-size: 14px;
+  }
 }
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@media screen and (min-width: 570px){
+  html{
+    font-size: 15px;
+  }
+}
+@media screen and (min-width: 620px){
+  html{
+    font-size: 16px;
+  }
+}
+@media screen and (min-width: 680px){
+  html{
+    font-size: 17px;
+  }
+}
+@media screen and (min-width: 720px){
+  html{
+    font-size: 18px;
+  }
+}
+@media screen and (min-width: 800px){
+  html{
+    font-size: 19px;
+  }
+}
+@media screen and (min-width: 860px){
+  html{
+    font-size: 20px;
+  }
+}
+@media screen and (min-width: 920px){
+  html{
+    font-size: 21px;
+  }
+}
+@media screen and (min-width: 1000px){
+  html{
+    font-size: 22px;
+  }
 }

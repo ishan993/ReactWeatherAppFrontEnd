@@ -4,7 +4,6 @@ import glamorous from 'glamorous';
 import NoMatch from './NoMatch';
 import HomeComponent from '../containers/HomeComponent';
 import TimeCapsule from '../components/TimeCapsule';
-import MapComponent from '../components/MapComponent';
 
 const Content = glamorous.div({
   marginTop: 60,

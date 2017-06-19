@@ -15,20 +15,20 @@ const WeatherWrapper = glamorous.div({
     },
     borderBottom: '0.3pt solid lightgrey',
     margin: '10px 0 0 0',
-    padding: 20,
+    padding: 10,
     background: 'white'
 });
 
 const ContentWrapper = glamorous.div({
     '@media(min-width: 840px)': {
-        flexBasis: '60%'
+        flexBasis: '60%',
+        borderLeft: '.3pt solid lightgrey'
     },
-    padding: 10,
-    background: 'white',
-    borderLeft: '.3pt solid lightgrey'
+    padding: 5,
+    background: 'white'
 });
 
-const StyledH1 = glamorous.h1({
+const StyledH2 = glamorous.h2({
     fontWeight: 100,
     borderBottom: '0.3pt solid lightgrey',
     padding: 5
@@ -36,7 +36,7 @@ const StyledH1 = glamorous.h1({
 
 const ButtonWrapper = glamorous.div({
     background: 'white',
-    fontSize: 20,
+    fontSize: '1.2rem',
     padding: 10,
     display: 'flex',
     justifyContent: 'center'
@@ -52,10 +52,6 @@ const StyledLink = glamorous(Link)({
 });
 class WeatherComponent extends Component{
 
-    constructor(props){
-        super(props);
-    }
-
     render() {
         const { lat, lng, address, currentWeather, daily } = this.props.weatherProps;
         return (
@@ -63,10 +59,10 @@ class WeatherComponent extends Component{
                 <WeatherWrapper>
                     <DayWeatherComponent currentWeather={currentWeather} />
                     <ContentWrapper>
-                        <StyledH1>
+                        <StyledH2>
                             {address}
-                        </StyledH1>
-                        { daily.data.map((data)=> { return (<DailyItem key={data.time} dailyData={data}/>);})}
+                        </StyledH2>
+                        { daily.data.map((data)=> { return (<DailyItem dailyData={data} key={data.day} />);})}
                     </ContentWrapper>
                 </WeatherWrapper>
                 <ButtonWrapper>
