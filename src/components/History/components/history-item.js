@@ -1,7 +1,7 @@
 import React from 'react';
 import glamorous from 'glamorous';
 import PropTypes from 'prop-types';
-
+import { Link } from 'react-router-dom';
 const StyledH5 = glamorous.h5({
     fontWeight: 100,
     textAlign: 'left',
@@ -27,6 +27,7 @@ const Button = glamorous.button({
        width: 150,
        padding: 15
     },
+    textDecoration: 'none',
     marginLeft: 5,
     borderRadius: 3,
     padding: 3,
@@ -38,6 +39,8 @@ const Button = glamorous.button({
     fontWeight: 100
 });
 
+const StyledLink = Button.withComponent(Link);
+
 const HistoryItemWrapper = glamorous.div({
     border: '0.3pt solid lightgrey',
     borderLeft: 'none',
@@ -45,24 +48,29 @@ const HistoryItemWrapper = glamorous.div({
     padding: 10
 });
 
+const deleteItem = (latLngObj) => {
+    console.log('Imagine that I am deleting this link'+JSON.stringify(latLngObj));
+};
+
 const HistoryItem = (props) => {
+    const {lat, lng, time, address} = props.historyProps;
     return (
         <HistoryItemWrapper>
             <ListItem>
                 <StyledH4>
-                    {props.historyProps.address}
+                    {address}
                 </StyledH4>
                 <div>
-                    <Button>
+                    <StyledLink to={'/forecast?lat='+lat+'&lng='+lng}>
                         Visit
-                    </Button>
-                    <Button>
+                    </StyledLink>
+                    <Button onClick={() => deleteItem({lat: lat, lng: lng})}>
                         Delete
                     </Button>
                 </div>
             </ListItem>
             <StyledH5>
-                {props.historyProps.time}
+                {time}
             </StyledH5>
         </HistoryItemWrapper>
     );

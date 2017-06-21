@@ -62,7 +62,7 @@ class WeatherContainer extends Component{
                         <StyledH2>
                             {address}
                         </StyledH2>
-                        { daily.data.map((data)=> { return (<DailyItem dailyData={data} key={data.day} />);})}
+                        { daily.data.map((data)=> { return (<DailyItem dailyData={data} key={data.time} />);})}
                     </ContentWrapper>
                 </WeatherWrapper>
                 <ButtonWrapper>

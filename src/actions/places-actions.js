@@ -14,6 +14,9 @@ export const setPlaceId = (placeId) => {
     });
 };
 
+
+// Action creator that retrieves 5 suggestions at a time
+// calls GoogleMaps' AutoComplete API in the backend 
 export const fetchSuggestions = (value) => {
     const URL = ROOT_URL+'suggestions';
     const suggestionsRequest = axios.get(URL, {
@@ -38,7 +41,7 @@ export const fetchLatLng = (placeId) => {
     const latLngRequest = axios.get(URL, {
         params: {placeId: placeId}
     });
-    return (dispatch) => {
+    return () => {
         return latLngRequest.then((response) => {
             console.log(JSON.stringify(response.data.result.location));
             return (response.data.result.location);

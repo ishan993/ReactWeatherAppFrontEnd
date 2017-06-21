@@ -28,10 +28,10 @@ class WeatherMainContainer extends Component {
             this.props.routerProps.history.push('/forecast?lat='+initLatLng.lat+'&lng='+initLatLng.lng);
         }
         const queryParams = new URLSearchParams(this.props.routerProps.location.search);
-      /*   this.props.fetchWeather({
+        this.props.fetchWeather({
             lat: queryParams.get('lat'),
             lng: queryParams.get('lng')
-        });*/
+        });
     }
     render() {
         return (
