@@ -13,6 +13,7 @@ const NavBarWrapper = glamorous.div({
     zIndex: 9000,
     height: 60,
     display: 'flex',
+    justifyContent: 'space-between',
     alignItems: 'center',
     boxShadow: '1px 1px 1px rgba(0,0,0,0.1)'
 });
@@ -31,7 +32,9 @@ const NavBar = () => {
             <StyledLink to='/'>
                 SkyCast
             </StyledLink>
-            Header Body
+            <StyledLink to='/history'>
+                History
+            </StyledLink>
         </NavBarWrapper>
     );
 };

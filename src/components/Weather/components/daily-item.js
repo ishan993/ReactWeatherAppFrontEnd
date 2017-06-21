@@ -24,7 +24,7 @@ const ListItem = glamorous.div({
     width: '95%',
     margin: 'auto',
     fontSize: '1.1rem',
-    padding: 3,
+    padding: 5,
     textAlign: 'left'
 });
 

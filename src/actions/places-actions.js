@@ -36,29 +36,3 @@ export const fetchSuggestions = (value) => {
 export const invalidateSuggestions = () => {
     return ({ type: INVALIDATE_SUGGESTIONS });
 };
-
-export const fetchHistory = () => {
-    const history = JSON.parse(localStorage.getItem('searchHistory', ''));
-    return ({ type: REQUEST_SEARCH_HISTORY, searchHistory: history });
-};
-
-export const saveSearchHistory = (searchObj) => {
-    let searchHistory = localStorage.getItem('searchHistory');
-
-    if (!searchHistory)
-        searchHistory = {};
-    else
-        searchHistory = JSON.parse(searchHistory);
-
-    const { placeId } = searchObj;
-    delete searchObj.placeId;
-
-    if (!searchHistory[placeId]){
-        searchHistory[placeId] = searchObj;
-    } else
-        searchHistory[placeId].time = searchObj.time;
-
-    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-    return ({ type: REQUEST_SEARCH_HISTORY, searchHistory: searchHistory});
-
-};

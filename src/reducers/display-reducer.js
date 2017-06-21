@@ -8,6 +8,7 @@ export default (state = DEFAULT_STATE, action) => {
         case TOGGLE_BACKGROUND:
             return { ...state, isBackgroundBlue: !state.isBackgroundBlue };
         case LOADING_DATA:
+            console.log('trying----->>>');
             return { ...state, isLoading: true };
         case FINISHED_LOADING_DATA:
             return { ...state, isLoading: false};

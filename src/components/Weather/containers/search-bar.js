@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Autocomplete from 'react-autocomplete';
-import { fetchSuggestions, fetchWeather } from '../actions';
+import { fetchSuggestions } from '../../../actions';
 
 const wrapperStyle = {
     width: '100%',
@@ -63,7 +63,6 @@ class SearchBar extends Component {
             value: '',
             items: this.props.placesSuggestions
         };
-        this.props.fetchWeather(this.props.placeId);
     }
 
     componentWillReceiveProps(){
@@ -118,7 +117,6 @@ SearchBar.propTypes = {
     fetchSuggestions: PropTypes.func.isRequired,
     fetchWeather: PropTypes.func.isRequired,
     placesSuggestions: PropTypes.array.isRequired,
-    saveSearchHistory: PropTypes.func.isRequired,
     placeId: PropTypes.string.isRequired
 };
 
@@ -128,4 +126,4 @@ function mapStateToProps(state){
             placeId: state.placesProps.placeId
         };
 }
-export default connect (mapStateToProps, { fetchSuggestions, fetchWeather })(SearchBar);
+export default connect (mapStateToProps, { fetchSuggestions })(SearchBar);

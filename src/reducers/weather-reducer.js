@@ -1,7 +1,7 @@
 import { REQUEST_WEATHER } from '../actions';
 import { REQUEST_TIME_CAPSULE } from '../actions';
 
-const DEFAULT_STATE = { forecast: {}, timeCapsuleObj: {} };
+const DEFAULT_STATE = { forecast: null, timeCapsuleObj: {} };
 
 export default (state = DEFAULT_STATE, action) => {
     switch (action.type){

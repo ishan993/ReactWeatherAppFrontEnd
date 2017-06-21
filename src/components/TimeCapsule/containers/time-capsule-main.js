@@ -5,9 +5,9 @@ import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import { fetchTimeCaps } from '../actions';
-import ChartsComponent from './ChartsComponent';
-import DayWeatherComponent from './DayWeatherComponent';
+import { fetchTimeCaps } from '../../../actions';
+import ChartsComponent from '../components/charts-component';
+// import DayWeatherComponent from './DayWeatherComponent';
 
 const StyledDatePicker = glamorous(DatePicker)({
     width: '80%',
@@ -34,7 +34,7 @@ const CurrentWeatherStatsWrapper = glamorous.div({
     background: 'papayawhip'
 });
 
-class TimeCapsule extends Component {
+export class TimeCapsuleMainContainer extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -64,16 +64,16 @@ class TimeCapsule extends Component {
                         dropdownMode="select"
                     />
                 </InputWrapper>
-                 <CurrentWeatherStatsWrapper>
-                    { timeCapsuleObj.daily ? <DayWeatherComponent currentWeather={timeCapsuleObj.daily} /> : ''}
-                </CurrentWeatherStatsWrapper>
                 <ChartsComponent data={timeCapsuleObj.hourly}/>
             </CapsWrapper>
         );
     }
 }
 
-TimeCapsule.propTypes = {
+/* <CurrentWeatherStatsWrapper>
+                    { timeCapsuleObj.daily ? <DayWeatherComponent currentWeather={timeCapsuleObj.daily} /> : ''}
+                </CurrentWeatherStatsWrapper>*/
+TimeCapsuleMainContainer.propTypes = {
     timeCapsuleObj: PropTypes.object.isRequired,
     fetchTimeCaps: PropTypes.func.isRequired,
     location: PropTypes.object.isRequired
@@ -83,4 +83,5 @@ const mapStateToProps = (state) => {
     return ({timeCapsuleObj: state.weatherProps.timeCapsuleObj});
 };
 
-export default connect(mapStateToProps, { fetchTimeCaps })(TimeCapsule);
+export const ConnectedTimeCapsuleContainer = connect(mapStateToProps,
+                                                { fetchTimeCaps })(TimeCapsuleMainContainer);

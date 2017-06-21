@@ -3,10 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import glamorous from 'glamorous';
-import { fetchWeather, saveSearchHistory } from '../actions';
-import moment from 'moment';
-import DayWeatherComponent from './DayWeatherComponent';
-import DailyItem from './DailyItem';
+import DayWeatherComponent from '../components/day-weather';
+import DailyItem from '../components/daily-item';
 
 const WeatherWrapper = glamorous.div({
     '@media(min-width: 840px)': {
@@ -51,17 +49,8 @@ const StyledLink = glamorous(Link)({
     textDecoration: 'none',
     borderRadius: 4
 });
-class WeatherComponent extends Component{
 
-    componentWillMount(){
-        this.props.saveSearchHistory({
-            placeId: this.props.weatherProps.placeId,
-            address: this.props.weatherProps.address,
-            lat: this.props.weatherProps.lat,
-            lng: this.props.weatherProps.lng,
-            time: moment().format('L')
-        });
-    }
+class WeatherContainer extends Component{
 
     render() {
         const { lat, lng, address, currentWeather, daily } = this.props.weatherProps;
@@ -84,16 +73,8 @@ class WeatherComponent extends Component{
     }
 }
 
-WeatherComponent.propTypes = {
-    fetchWeather: PropTypes.func.isRequired,
-    weatherProps: PropTypes.object.isRequired,
-    saveSearchHistory: PropTypes.func.isRequired
+WeatherContainer.propTypes = {
+    weatherProps: PropTypes.object.isRequired
 };
 
-const mapStateToProps = (state) => {
-    return {
-        weatherProps: state.weatherProps.forecast
-    };
-};
-
-export default connect(mapStateToProps, { fetchWeather, saveSearchHistory })(WeatherComponent);
+export default connect(null)(WeatherContainer);
