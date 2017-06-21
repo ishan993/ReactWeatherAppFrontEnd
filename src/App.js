@@ -12,7 +12,6 @@ const AppWrapper = glamorous.div({
     textAlign: 'center'
 });
 
-
 const customHistory = createBrowserHistory();
 
 class App extends Component {

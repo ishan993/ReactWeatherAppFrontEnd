@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Autocomplete from 'react-autocomplete';
-import { fetchSuggestions } from '../../../actions';
+import { fetchSuggestions, fetchLatLng } from '../../../actions';
 
 const wrapperStyle = {
     width: '100%',
@@ -104,7 +104,9 @@ class SearchBar extends Component {
 
                     onSelect={(val, item) => {
                         this.setState({value: val});
-                        this.props.fetchWeather(item.place_id);
+                        this.props.fetchLatLng(item.place_id).then((response)=>{
+                            this.props.history.push('/forecast?lat='+response.lat+'&lng='+response.lng);
+                        });
                     }}
 
                     sortItems={sortStates}
@@ -117,7 +119,9 @@ SearchBar.propTypes = {
     fetchSuggestions: PropTypes.func.isRequired,
     fetchWeather: PropTypes.func.isRequired,
     placesSuggestions: PropTypes.array.isRequired,
-    placeId: PropTypes.string.isRequired
+    placeId: PropTypes.string.isRequired,
+    history: PropTypes.object.isRequired,
+    fetchLatLng: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state){
@@ -126,4 +130,4 @@ function mapStateToProps(state){
             placeId: state.placesProps.placeId
         };
 }
-export default connect (mapStateToProps, { fetchSuggestions })(SearchBar);
+export default connect (mapStateToProps, { fetchSuggestions, fetchLatLng })(SearchBar);

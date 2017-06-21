@@ -17,9 +17,9 @@ export const fetchWeather = (placeId) => {
     const URL = ROOT_URL;
     const fetchRequest = axios.get(URL, { params: {placeId} });
 
-    return function(dispatch) {
+    return (dispatch) => {
         dispatch({ type: LOADING_DATA });
-        fetchRequest.then((response) => {
+        return fetchRequest.then((response) => {
             dispatch({ type: REQUEST_WEATHER, forecast: response.data.result });
             dispatch({ type: FINISHED_LOADING_DATA });
             saveSearchHistory({
@@ -29,6 +29,7 @@ export const fetchWeather = (placeId) => {
                 lng: response.data.result.lng,
                 time: moment().format('lll')
             });
+            return ({lat: response.data.result.lat, lng: response.data.result.lng});
             console.log('FETCHING_WEATHER---->>>>>>>');
         }).catch((error) => {
             throw new Error(error.message);
@@ -56,7 +57,6 @@ export const fetchTimeCaps = (query) => {
 
 export const fetchHistory = () => {
     const history = JSON.parse(localStorage.getItem('searchHistory', ''));
-    console.log('Here is the history: '+JSON.stringify(history));
     return ({ type: REQUEST_SEARCH_HISTORY, searchHistory: history });
 };
 

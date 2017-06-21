@@ -14,23 +14,29 @@ const Wrapper = glamorous.div({
     margin: 'auto'
 });
 
+const initLatLng = {
+    lat: 40.7128,
+    lng: 74.0059
+};
+
 class WeatherMainContainer extends Component {
     constructor(props){
         super(props);
-        console.log('Router Props here: '+JSON.stringify(props));
-        if (!this.props.routerProps.location.search)
-            this.props.routerProps.history.push('/404');
-
-        this.props.showLoadingGraphic();
     }
     componentWillMount(){
-        this.props.fetchWeather(this.props.placeId);
-        console.log('Loading=====>>>>>'+this.props.placeId);
+        if (!this.props.routerProps.location.search){
+            this.props.routerProps.history.push('/forecast?lat='+initLatLng.lat+'&lng='+initLatLng.lng);
+        }
+        const queryParams = new URLSearchParams(this.props.routerProps.location.search);
+      /*   this.props.fetchWeather({
+            lat: queryParams.get('lat'),
+            lng: queryParams.get('lng')
+        });*/
     }
     render() {
         return (
             <Wrapper>
-                <SearchBar fetchWeather={this.props.fetchWeather}/>
+                <SearchBar fetchWeather={this.props.fetchWeather} history={this.props.routerProps.history} />
                 {this.props.weatherProps ? <WeatherContainer weatherProps={this.props.weatherProps}/> : ''}
             </Wrapper>
         );

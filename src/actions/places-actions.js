@@ -5,7 +5,7 @@ export const INVALIDATE_SUGGESTIONS = 'INVALIDATE_SUGGESTIONS';
 export const SET_PLACE_ID = 'SET_PLACE_ID';
 export const REQUEST_SEARCH_HISTORY = 'REQUEST_SEARCH_HISTORY';
 
-const ROOT_URL = 'http://localhost:1337/';
+const ROOT_URL = 'http://localhost:1337/places/';
 
 export const setPlaceId = (placeId) => {
     return ({
@@ -15,20 +15,35 @@ export const setPlaceId = (placeId) => {
 };
 
 export const fetchSuggestions = (value) => {
-    const URL = ROOT_URL+'places';
-    const fetchRequest = axios.get(URL, {
+    const URL = ROOT_URL+'suggestions';
+    const suggestionsRequest = axios.get(URL, {
         params: {
             suggestion: value
         }
     });
     return function(dispatch){
-        fetchRequest.then((response)=>{
+        suggestionsRequest.then((response)=>{
             dispatch({
                 type: REQUEST_SUGGESTIONS,
                 places: response.data.result
             });
         }).catch((error)=>{
             throw new Error(error.message.predictions);
+        });
+    };
+};
+
+export const fetchLatLng = (placeId) => {
+    const URL = ROOT_URL+'latlng';
+    const latLngRequest = axios.get(URL, {
+        params: {placeId: placeId}
+    });
+    return (dispatch) => {
+        return latLngRequest.then((response) => {
+            console.log(JSON.stringify(response.data.result.location));
+            return (response.data.result.location);
+        }).catch((error) => {
+            throw new Error(error.message);
         });
     };
 };
