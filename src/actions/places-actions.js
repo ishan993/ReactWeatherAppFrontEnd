@@ -5,7 +5,7 @@ export const INVALIDATE_SUGGESTIONS = 'INVALIDATE_SUGGESTIONS';
 export const SET_PLACE_ID = 'SET_PLACE_ID';
 export const REQUEST_SEARCH_HISTORY = 'REQUEST_SEARCH_HISTORY';
 
-const ROOT_URL = 'http://localhost:1337/places/';
+const ROOT_URL = 'https://skycast-backend.herokuapp.com/places/';
 
 export const setPlaceId = (placeId) => {
     return ({

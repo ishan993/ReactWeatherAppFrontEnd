@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ROOT_URL = 'http://localhost:1337/weather';
+const ROOT_URL = 'https://skycast-backend.herokuapp.com/weather';
 export const REQUEST_WEATHER = 'REQUEST_WEATHER';
 export const REQUEST_TIME_CAPSULE = 'REQUEST_TIME_CAPSULE';
 export const FINISHED_LOADING_DATA = 'FINISHED_LOADING_DATA';
