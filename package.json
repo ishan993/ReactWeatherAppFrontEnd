@@ -32,6 +32,7 @@
   "scripts": {
     "start": "react-scripts start",
     "postinstall": "react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint:watch": "npm run lint -- --watch"
