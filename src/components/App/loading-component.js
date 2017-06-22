@@ -8,5 +8,5 @@ const LoadingGIF = glamorous.img({
 });
 
 export const LoadingComponent = () => {
-    return (<LoadingGIF src='http://res.cloudinary.com/ishanvadwala/image/upload/v1498107123/default_1_spnevs.gif'/>);
+    return (<LoadingGIF src='https://res.cloudinary.com/ishanvadwala/image/upload/v1498107123/default_1_spnevs.gif'/>);
 };
