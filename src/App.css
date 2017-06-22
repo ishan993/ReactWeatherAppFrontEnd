@@ -7,15 +7,18 @@ body{
   font-family: 'title-font';
   margin: 0;
   padding: 0;
-  background: #65DEF1;
+  background: #00bcd4;
 }
 h1 {
+  font-weight: 100;
 	font-size: 3rem;
 }
 h2 {
+  font-weight: 100;
 	font-size: 2rem;
 }
 h3{
+    font-weight: 100;
     margin:0;
     padding: 0;
     margin-bottom: 2px;
@@ -23,6 +26,7 @@ h3{
     font-size: 1.5rem;
 }
 h4{
+    font-weight: 100;
     margin:0;
     padding: 0;
     margin-bottom: 2px;

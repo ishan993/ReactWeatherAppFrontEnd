@@ -50,7 +50,6 @@ const renderChart = (data) => {
     const arr = [];
     if (data){
         const chartData = getChartData(data);
-        console.log('Here s chartsData'+JSON.stringify(chartData));
         for (let entry in chartData){
             if (chartData[entry])
                 arr.push(<SingleChart data={chartData[entry]} name={entry}/>);

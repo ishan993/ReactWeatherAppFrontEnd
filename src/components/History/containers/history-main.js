@@ -52,7 +52,6 @@ HistoryMainContainer.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-    console.log('refreshing');
     return ({ searchHistory: state.placesProps.searchHistory });
 };
 

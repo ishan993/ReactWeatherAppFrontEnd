@@ -1,7 +1,6 @@
 import React from 'react';
 import glamorous from 'glamorous';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 const StyledH5 = glamorous.h5({
@@ -39,14 +38,6 @@ const Button = glamorous.button({
     border: '1px solid lightgrey',
     outline: 'none',
     fontWeight: 100
-});
-
-const StyledLink = Button.withComponent(Link);
-const ReStyledLink = glamorous(StyledLink)({
-    fontWeight: 100,
-    width: 200,
-    color: 'papayawhip',
-    fontSize: '1rem'
 });
 
 const HistoryItemWrapper = glamorous.div({

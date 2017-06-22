@@ -5,9 +5,9 @@ import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import { fetchTimeCaps } from '../../../actions';
+import { fetchTimeCaps, clearTimeCaps } from '../../../actions';
 import ChartsComponent from '../components/charts-component';
-// import DayWeatherComponent from './DayWeatherComponent';
+import TimeCapsuleWeatherComponent from '../components/time-caps-weather';
 
 const StyledDatePicker = glamorous(DatePicker)({
     width: '80%',
@@ -15,23 +15,21 @@ const StyledDatePicker = glamorous(DatePicker)({
     fontWeight: 100
 });
 
-const CapsWrapper = glamorous.div({
-    width: '90%',
-    margin: 'auto',
+const TimeCapsuleWrapper = glamorous.div({
+    '@media(min-width: 840px)': {
+        width: '90%',
+        margin: 'auto'
+    },
+    padding: 10,
+    boxSizing: 'border-box',
     background: 'white',
-    padding: 20
+    width: '100%'
 });
 
 const InputWrapper = glamorous.div({
+    padding: 10,
     display: 'flex',
     alignItems: 'center'
-});
-
-const CurrentWeatherStatsWrapper = glamorous.div({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    background: 'papayawhip'
 });
 
 export class TimeCapsuleMainContainer extends Component {
@@ -46,11 +44,15 @@ export class TimeCapsuleMainContainer extends Component {
         const tempDate = new Date(date).getTime()/1000;
         this.props.fetchTimeCaps(this.props.location.search+'&date='+tempDate);
     }
+    componentWillUnmount(){
+        console.log('unmounting====>>>');
+        this.props.clearTimeCaps();
+    }
 
     render() {
         const { timeCapsuleObj } = this.props;
         return (
-            <CapsWrapper>
+            <TimeCapsuleWrapper>
                 <InputWrapper>
                     <h2>Select Date:</h2>
                     <StyledDatePicker
@@ -64,19 +66,21 @@ export class TimeCapsuleMainContainer extends Component {
                         dropdownMode="select"
                     />
                 </InputWrapper>
+                {this.props.timeCapsuleObj.daily ?
+                    <TimeCapsuleWeatherComponent address={this.props.timeCapsuleObj.address}
+                        data={timeCapsuleObj.daily}/>
+                : '' }
                 <ChartsComponent data={timeCapsuleObj.hourly}/>
-            </CapsWrapper>
+            </TimeCapsuleWrapper>
         );
     }
 }
 
-/* <CurrentWeatherStatsWrapper>
-                    { timeCapsuleObj.daily ? <DayWeatherComponent currentWeather={timeCapsuleObj.daily} /> : ''}
-                </CurrentWeatherStatsWrapper>*/
 TimeCapsuleMainContainer.propTypes = {
     timeCapsuleObj: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
     fetchTimeCaps: PropTypes.func.isRequired,
-    location: PropTypes.object.isRequired
+    clearTimeCaps: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
@@ -84,4 +88,4 @@ const mapStateToProps = (state) => {
 };
 
 export const ConnectedTimeCapsuleContainer = connect(mapStateToProps,
-                                                { fetchTimeCaps })(TimeCapsuleMainContainer);
+                                                { fetchTimeCaps, clearTimeCaps })(TimeCapsuleMainContainer);

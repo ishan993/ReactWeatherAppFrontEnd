@@ -5,6 +5,7 @@ export const REQUEST_WEATHER = 'REQUEST_WEATHER';
 export const REQUEST_TIME_CAPSULE = 'REQUEST_TIME_CAPSULE';
 export const FINISHED_LOADING_DATA = 'FINISHED_LOADING_DATA';
 export const LOADING_DATA = 'LOADING_DATA';
+export const CLEAR_TIME_CAPSULE = 'CLEAR_TIME_CAPSULE';
 
 export const showLoadingGraphic = () => {
     return ({ type: LOADING_DATA });
@@ -31,7 +32,6 @@ export const fetchWeather = (latLngObj) => {
 };
 
 export const fetchTimeCaps = (query) => {
-    console.log('lol'+query);
     const URL = ROOT_URL+'/timecapsule/'+query;
     const fetchTimeCapsReq = axios.get(URL);
     return function(dispatch){
@@ -46,5 +46,13 @@ export const fetchTimeCaps = (query) => {
             console.log('I got an error: '+error.message);
         });
     };
+};
+
+// Clears stale timecampsule data to get fresh info
+export const clearTimeCaps = () => {
+    console.log('Trying to clear stale time caps data');
+    return ({
+        type: CLEAR_TIME_CAPSULE
+    });
 };
 

@@ -22,9 +22,7 @@ const initLatLng = {
 };
 
 class WeatherMainContainer extends Component {
-    constructor(props){
-        super(props);
-    }
+
     componentDidMount(){
         if (!this.props.routerProps.location.search){
             this.props.routerProps.history.push('/forecast?lat='+initLatLng.lat+'&lng='+initLatLng.lng);

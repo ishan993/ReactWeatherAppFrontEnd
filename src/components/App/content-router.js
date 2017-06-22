@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import glamorous from 'glamorous';
 import NoMatch from './NoMatch';
-import { ConnectedWeatherContainer } from './Weather';
-import { ConnectedTimeCapsuleContainer } from './TimeCapsule';
-import { ConnectedHistoryContainer } from './History';
+import { ConnectedWeatherContainer } from '../Weather';
+import { ConnectedTimeCapsuleContainer } from '../TimeCapsule';
+import { ConnectedHistoryContainer } from '../History';
 
 const Content = glamorous.div({
   marginTop: 70

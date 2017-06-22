@@ -43,7 +43,6 @@ export const fetchLatLng = (placeId) => {
     });
     return () => {
         return latLngRequest.then((response) => {
-            console.log(JSON.stringify(response.data.result.location));
             return (response.data.result);
         }).catch((error) => {
             throw new Error(error.message);
