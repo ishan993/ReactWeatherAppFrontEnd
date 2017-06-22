@@ -2,6 +2,8 @@ import React from 'react';
 import glamorous from 'glamorous';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
+
 const StyledH5 = glamorous.h5({
     fontWeight: 100,
     textAlign: 'left',
@@ -40,6 +42,12 @@ const Button = glamorous.button({
 });
 
 const StyledLink = Button.withComponent(Link);
+const ReStyledLink = glamorous(StyledLink)({
+    fontWeight: 100,
+    width: 200,
+    color: 'papayawhip',
+    fontSize: '1rem'
+});
 
 const HistoryItemWrapper = glamorous.div({
     border: '0.3pt solid lightgrey',
@@ -48,9 +56,7 @@ const HistoryItemWrapper = glamorous.div({
     padding: 10
 });
 
-const deleteItem = (latLngObj) => {
-    console.log('Imagine that I am deleting this link'+JSON.stringify(latLngObj));
-};
+
 
 const HistoryItem = (props) => {
     const {lat, lng, time, address} = props.historyProps;
@@ -61,23 +67,30 @@ const HistoryItem = (props) => {
                     {address}
                 </StyledH4>
                 <div>
-                    <StyledLink to={'/forecast?lat='+lat+'&lng='+lng}>
+                    <Button onClick={()=>{
+                        props.routerProps.history.push('/forecast?lat='+lat+'&lng='+lng);
+                    }}>
                         Visit
-                    </StyledLink>
-                    <Button onClick={() => deleteItem({lat: lat, lng: lng})}>
+                    </Button>
+                    <Button onClick={()=> {
+                        props.saveSearchHistory(props.historyProps, true);
+                        props.routerProps.history.push('/');
+                    }}>
                         Delete
                     </Button>
                 </div>
             </ListItem>
             <StyledH5>
-                {time}
+                {moment(time).format('LLL')}
             </StyledH5>
         </HistoryItemWrapper>
     );
 };
 
 HistoryItem.propTypes = {
-    historyProps: PropTypes.object.isRequired
+    historyProps: PropTypes.object.isRequired,
+    saveSearchHistory: PropTypes.func.isRequired,
+    routerProps: PropTypes.object.isRequired
 };
 
 export default HistoryItem;

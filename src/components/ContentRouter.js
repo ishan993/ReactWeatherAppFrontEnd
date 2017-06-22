@@ -13,10 +13,13 @@ const Content = glamorous.div({
 const ContentRouter = () => (
   <Content>
     <Switch>
-      <Route path="/" exact={true} component={(props) => <ConnectedWeatherContainer routerProps={props}/> }/>
-      <Route path="/forecast" exact={true} component={(props) => <ConnectedWeatherContainer routerProps={props}/> }/>
+      <Route path="/" exact={true} component={
+        (props) => <ConnectedWeatherContainer routerProps={props} />} />
+      <Route path="/forecast" exact={true} component={
+        (props) => <ConnectedWeatherContainer routerProps={props} />} />
       <Route path="/timecapsule" exact={true} component={ ConnectedTimeCapsuleContainer }/>
-      <Route path="/history" exact={true} component={ ConnectedHistoryContainer }/>
+      <Route path="/history" exact={true} component={
+        (props)=> <ConnectedHistoryContainer routerProps={props}/>} />
       <Route component={NoMatch}/>
     </Switch>
   </Content>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import glamorous from 'glamorous';
-import { fetchHistory } from '../../../actions';
+import { fetchHistory, saveSearchHistory } from '../../../actions';
 import HistoryItem from '../components/history-item';
 
 const HistoryComponentWrapper  = glamorous.div({
@@ -22,16 +22,6 @@ const StyledH2 = glamorous.h2({
     padding: 3
 });
 
-const renderHistoryItem = (searchHistory) => {
-    const arr = [];
-    
-    for (let entry in searchHistory){
-        if (searchHistory[entry])
-            arr.push(<HistoryItem key={entry} historyProps={searchHistory[entry]} />);
-    }
-    return arr;
-};
-
 
 class HistoryMainContainer extends Component {
 
@@ -45,7 +35,10 @@ class HistoryMainContainer extends Component {
                 <StyledH2>
                     History
                 </StyledH2>
-                {renderHistoryItem(this.props.searchHistory).map((item)=>{return item;})}
+                {this.props.searchHistory.map((item)=> {
+                    return (<HistoryItem key={item.time} routerProps={this.props.routerProps}
+                        historyProps={item} saveSearchHistory={this.props.saveSearchHistory}/>);
+                })}
             </HistoryComponentWrapper>
         );
     }
@@ -53,11 +46,14 @@ class HistoryMainContainer extends Component {
 
 HistoryMainContainer.propTypes = {
     fetchHistory: PropTypes.func.isRequired,
-    searchHistory: PropTypes.object.isRequired
+    searchHistory: PropTypes.array.isRequired,
+    routerProps: PropTypes.object.isRequired,
+    saveSearchHistory: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
+    console.log('refreshing');
     return ({ searchHistory: state.placesProps.searchHistory });
 };
 
-export const ConnectedHistoryContainer =  connect(mapStateToProps, { fetchHistory })(HistoryMainContainer);
+export const ConnectedHistoryContainer =  connect(mapStateToProps, { fetchHistory, saveSearchHistory })(HistoryMainContainer);

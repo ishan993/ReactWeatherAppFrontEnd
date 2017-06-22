@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import queryString from 'query-string';
 import glamorous from 'glamorous';
 import SearchBar from './search-bar';
 import WeatherContainer from './weather-container';
@@ -15,22 +16,22 @@ const Wrapper = glamorous.div({
 });
 
 const initLatLng = {
-    lat: 40.7128,
-    lng: 74.0059
+    lat: 37.3362,
+    lng: -121.8906
 };
 
 class WeatherMainContainer extends Component {
     constructor(props){
         super(props);
     }
-    componentWillMount(){
+    componentDidMount(){
         if (!this.props.routerProps.location.search){
             this.props.routerProps.history.push('/forecast?lat='+initLatLng.lat+'&lng='+initLatLng.lng);
         }
-        const queryParams = new URLSearchParams(this.props.routerProps.location.search);
+        const queryParams = queryString.parse(this.props.routerProps.location.search);
         this.props.fetchWeather({
-            lat: queryParams.get('lat'),
-            lng: queryParams.get('lng')
+            lat: queryParams.lat,
+            lng: queryParams.lng
         });
     }
     render() {

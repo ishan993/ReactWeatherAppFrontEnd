@@ -5,7 +5,7 @@ import { REQUEST_SEARCH_HISTORY } from '../actions';
 
 const DEFAULT_STATE = { placesSuggestions: [],
     placeId: 'ChIJOwg_06VPwokRYv534QaPC8g',
-    searchHistory: {} };
+    searchHistory: [] };
 
 export default (state = DEFAULT_STATE, action) => {
     switch (action.type) {

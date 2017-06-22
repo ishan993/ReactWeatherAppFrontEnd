@@ -17,7 +17,11 @@ const flexSpan = glamorous({
 
 // Duplicated.. Don't forget to remove it later
 const ListItem = glamorous.div({
-    borderBottom: '0.3pt solid lightgrey',
+     '@media(min-width: 840px)': {
+        width: '90%',
+        borderTop: 'none'
+    },
+    borderTop: '0.3pt solid lightgrey',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-around',

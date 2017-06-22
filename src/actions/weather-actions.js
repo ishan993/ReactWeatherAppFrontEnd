@@ -1,7 +1,4 @@
 import axios from 'axios';
-import moment from 'moment';
-
-const REQUEST_SEARCH_HISTORY = 'REQUEST_SEARCH_HISTORY';
 
 const ROOT_URL = 'http://localhost:1337/weather';
 export const REQUEST_WEATHER = 'REQUEST_WEATHER';
@@ -23,16 +20,9 @@ export const fetchWeather = (latLngObj) => {
     });
     return (dispatch) => {
         dispatch({ type: LOADING_DATA });
-        return fetchRequest.then((response) => {
+        fetchRequest.then((response) => {
             dispatch({ type: REQUEST_WEATHER, forecast: response.data.result });
             dispatch({ type: FINISHED_LOADING_DATA });
-            saveSearchHistory({
-                placeId: latLngObj.lat+''+latLngObj.lng,
-                address: response.data.result.address,
-                lat: response.data.result.lat,
-                lng: response.data.result.lng,
-                time: moment().format('lll')
-            });
             console.log('FETCHING_WEATHER---->>>>>>>');
         }).catch((error) => {
             throw new Error(error.message);
@@ -58,30 +48,3 @@ export const fetchTimeCaps = (query) => {
     };
 };
 
-export const fetchHistory = () => {
-    const history = JSON.parse(localStorage.getItem('searchHistory', ''));
-    // Can't sort a JSON Object
-  
-    return ({ type: REQUEST_SEARCH_HISTORY, searchHistory: history });
-};
-
-const saveSearchHistory = (searchObj) => {
-    let searchHistory = localStorage.getItem('searchHistory');
-
-    if (!searchHistory)
-        searchHistory = {};
-    else
-        searchHistory = JSON.parse(searchHistory);
-
-    const { lat, lng } = searchObj;
-    const id = lat+''+lng;
-
-    if (!searchHistory[id]){
-        searchHistory[id] = searchObj;
-    } else
-        searchHistory[id].time = searchObj.time;
-
-    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-    return ({ type: REQUEST_SEARCH_HISTORY, searchHistory: searchHistory});
-
-};

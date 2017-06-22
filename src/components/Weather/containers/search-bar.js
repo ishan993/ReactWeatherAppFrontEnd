@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Autocomplete from 'react-autocomplete';
-import { fetchSuggestions, fetchLatLng } from '../../../actions';
+import { fetchSuggestions, fetchLatLng, saveSearchHistory } from '../../../actions';
 
 const wrapperStyle = {
     width: '100%',
@@ -105,7 +105,10 @@ class SearchBar extends Component {
                     onSelect={(val, item) => {
                         this.setState({value: val});
                         this.props.fetchLatLng(item.place_id).then((response)=>{
-                            this.props.history.push('/forecast?lat='+response.lat+'&lng='+response.lng);
+                            const {lat, lng} = response.location;
+                            const { address } = response;
+                            saveSearchHistory({lat: lat, lng: lng, address: address}, false);
+                            this.props.history.push('/forecast?lat='+lat+'&lng='+lng);
                         });
                     }}
 
