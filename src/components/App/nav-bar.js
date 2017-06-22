@@ -40,7 +40,7 @@ const NavBar = () => {
                 SkyCast
             </StyledLink>
             <StyledLink to='/history'>
-                <HistoryIcon src='http://res.cloudinary.com/ishanvadwala/image/upload/v1498128370/time_hvhjd6.png' title='history'/>
+                <HistoryIcon src='https://res.cloudinary.com/ishanvadwala/image/upload/v1498128370/time_hvhjd6.png' title='history'/>
             </StyledLink>
         </NavBarWrapper>
     );
