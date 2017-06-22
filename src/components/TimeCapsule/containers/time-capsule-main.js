@@ -7,6 +7,7 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import { fetchTimeCaps, clearTimeCaps } from '../../../actions';
 import ChartsComponent from '../components/charts-component';
+import LoadingComponent from '../../App/loading-component';
 import TimeCapsuleWeatherComponent from '../components/time-caps-weather';
 
 const StyledDatePicker = glamorous(DatePicker)({
@@ -66,10 +67,10 @@ export class TimeCapsuleMainContainer extends Component {
                         dropdownMode="select"
                     />
                 </InputWrapper>
-                {this.props.timeCapsuleObj.daily ?
+                {this.props.timeCapsuleObj.daily && !this.props.isLoading?
                     <TimeCapsuleWeatherComponent address={this.props.timeCapsuleObj.address}
                         data={timeCapsuleObj.daily}/>
-                : '' }
+                : <LoadingComponent /> }
                 <ChartsComponent data={timeCapsuleObj.hourly}/>
             </TimeCapsuleWrapper>
         );
@@ -79,12 +80,16 @@ export class TimeCapsuleMainContainer extends Component {
 TimeCapsuleMainContainer.propTypes = {
     timeCapsuleObj: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
+    isLoading: PropTypes.bool.isRequired,
     fetchTimeCaps: PropTypes.func.isRequired,
     clearTimeCaps: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
-    return ({timeCapsuleObj: state.weatherProps.timeCapsuleObj});
+    return ({
+                timeCapsuleObj: state.weatherProps.timeCapsuleObj,
+                isLoading: state.displayProps.isLoading
+            });
 };
 
 export const ConnectedTimeCapsuleContainer = connect(mapStateToProps,
