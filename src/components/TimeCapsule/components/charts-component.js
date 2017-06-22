@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import glamorous from 'glamorous';
 import SingleChart from './single-charts';
+import moment from 'moment';
 
 const ChartsWrapper = glamorous.div({
     margin: 'auto',
@@ -38,7 +39,8 @@ const getChartData = (data) => {
         for (let entry in data[i]){
             if (chartData[entry]) {
                 const itemData = data[i];
-                chartData[entry].push({ hour: itemData.hour, value: itemData[entry]});
+                const title = moment(itemData.time*1000).format('h:mm a');
+                chartData[entry].push({ title: title, value: itemData[entry]});
             }
         }
     }
@@ -51,8 +53,9 @@ const renderChart = (data) => {
     if (data){
         const chartData = getChartData(data);
         for (let entry in chartData){
-            if (chartData[entry])
-                arr.push(<SingleChart data={chartData[entry]} name={entry}/>);
+            if (chartData[entry]){
+                arr.push(<SingleChart key={entry} data={chartData[entry]} name={entry}/>);
+            }
         }
         return arr;
     }
