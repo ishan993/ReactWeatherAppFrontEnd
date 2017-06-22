@@ -39,6 +39,7 @@ const DailyItem = (props) => {
             <StyledIcon src={dailyData.icon} />
             <flexSpan>
                 {dailyData.day}
+                {console.log('Day'+dailyData.day+' icon:'+dailyData.icon)}
             </flexSpan>
             <flexSpan>
                 Min:{' '+dailyData.temperatureMin+' '}

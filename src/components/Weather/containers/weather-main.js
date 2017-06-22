@@ -5,6 +5,7 @@ import queryString from 'query-string';
 import glamorous from 'glamorous';
 import SearchBar from './search-bar';
 import WeatherContainer from './weather-container';
+import { LoadingComponent } from '../../App/loading-component';
 import { showLoadingGraphic, fetchWeather } from '../../../actions';
 
 const Wrapper = glamorous.div({
@@ -38,7 +39,7 @@ class WeatherMainContainer extends Component {
         return (
             <Wrapper>
                 <SearchBar fetchWeather={this.props.fetchWeather} history={this.props.routerProps.history} />
-                {this.props.weatherProps ? <WeatherContainer weatherProps={this.props.weatherProps}/> : ''}
+                {!this.props.isLoading && this.props.weatherProps ? <WeatherContainer weatherProps={this.props.weatherProps}/> : <LoadingComponent />}
             </Wrapper>
         );
     }

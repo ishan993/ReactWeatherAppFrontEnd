@@ -30,7 +30,7 @@ const ListItem = glamorous.div({
     justifyContent: 'space-around',
     width: '100%',
     margin: 'auto',
-    fontSize: 20,
+    fontSize: '.8rem',
     padding: 5,
     textAlign: 'justify'
 });

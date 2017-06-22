@@ -27,10 +27,10 @@ const ContentWrapper = glamorous.div({
     background: 'white'
 });
 
-const StyledH2 = glamorous.h2({
+const StyledH3 = glamorous.h3({
     fontWeight: 100,
     borderBottom: '0.3pt solid lightgrey',
-    padding: 5
+    padding: 15
 });
 
 const ButtonWrapper = glamorous.div({
@@ -59,9 +59,9 @@ class WeatherContainer extends Component{
                 <WeatherWrapper>
                     <DayWeatherComponent currentWeather={currentWeather} />
                     <ContentWrapper>
-                        <StyledH2>
+                        <StyledH3>
                             {address}
-                        </StyledH2>
+                        </StyledH3>
                         { daily.data.map((data)=> { return (<DailyItem dailyData={data} key={data.time} />);})}
                     </ContentWrapper>
                 </WeatherWrapper>
