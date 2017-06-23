@@ -35,14 +35,15 @@ class WeatherMainContainer extends Component {
         // Automatically redirect to San Jose onLoad
         if (!this.props.routerProps.location.search){
             this.props.routerProps.history.push('/forecast?lat='+initLatLng.lat+'&lng='+initLatLng.lng);
-        }
+        } else {
         // Loads the lat lng in the URL
-        const queryParams = queryString.parse(this.props.routerProps.location.search);
-        this.props.fetchWeather({
-            lat: queryParams.lat,
-            lng: queryParams.lng
-        });
-        this.setState({lat: queryParams.lat, lng: queryParams.lng});
+            const queryParams = queryString.parse(this.props.routerProps.location.search);
+            this.props.fetchWeather({
+                lat: queryParams.lat,
+                lng: queryParams.lng
+            });
+            this.setState({lat: queryParams.lat, lng: queryParams.lng});
+        }
     }
 
     render() {
