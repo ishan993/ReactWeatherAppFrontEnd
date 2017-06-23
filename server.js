@@ -17,10 +17,17 @@ const app = express();
 app.use(express.static(path.join(__dirname, '/build')));
 
 app.get('/*', (req, res) => {
+  console.log('--------->>>>>>>serving file');
+  res.status(200);
+  res.type('text/html');
+  res.send(html);
+});
+
+app.get('/forecast', (req, res) => {
+  console.log('--------->>>>>>>serving file');
   res.status(200);
   res.type('text/html');
   res.send(html);
 });
 
 app.listen(port);
-console.log('Server started');
