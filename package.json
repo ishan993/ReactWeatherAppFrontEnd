@@ -30,7 +30,7 @@
     "react-scripts": "1.0.7"
   },
   "scripts": {
-    "start": "babel-node server.js  --presets es2015,stage-2",
+    "start": "react-scripts start",
     "postinstall": "react-scripts build",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
