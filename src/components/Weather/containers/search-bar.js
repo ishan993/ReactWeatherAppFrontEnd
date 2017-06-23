@@ -39,6 +39,7 @@ const menuStyle = {
   );
 }*/
 
+//  Sort the suggestion results
 const sortStates = (a, b, value) => {
     const aLower = a.name.toLowerCase().replace(/[,]/g, '');
     const bLower = b.name.toLowerCase().replace(/[,]/g, '');
@@ -51,10 +52,13 @@ const sortStates = (a, b, value) => {
   }
   return aLower < bLower ? -1 : 1;
 };
+// renders the outer div for the menu
 const renderMenuFunction = (items, value, style) => {
   return <div style={{ ...style, ...this.menuStyle }} children={items}/>
 };
 
+
+// Only Renders the Searchbar
 class SearchBar extends Component {
 
     constructor(props) {
@@ -91,18 +95,20 @@ class SearchBar extends Component {
                             {item.name}
                         </div>
                     }
-
                     getItemValue={(item) => item.name}
 
                     items={this.state.items}
                     value={this.state.value}
                     onChange={(e) => {
+                        // Fetches suggestions on change
                         this.setState({value: e.target.value});
                         e.target.value.length >= 2 ? this.props.fetchSuggestions(e.target.value) : '';
                     }}
                     renderMenu={renderMenuFunction}
 
                     onSelect={(val, item) => {
+                        // Fetches weather on item select
+                        // Also stores the results in localStorage
                         this.setState({value: val});
                         this.props.fetchLatLng(item.place_id).then((response)=>{
                             const {lat, lng} = response.location;

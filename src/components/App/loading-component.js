@@ -25,6 +25,8 @@ const Button = glamorous.button({
     fontWeight: 100
 });
 
+// Shows the loading gif while fetching data
+// Shows a retry button incase the server can't be reached
 export const LoadingComponent = (props) => {
     if (props.isServerConnected){
         return (<LoadingGIF src='https://res.cloudinary.com/ishanvadwala/image/upload/v1498107123/default_1_spnevs.gif'/>);

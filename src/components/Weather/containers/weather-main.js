@@ -21,6 +21,7 @@ const initLatLng = {
     lng: -121.8906
 };
 
+// The Homepage that renders all the sub-components
 class WeatherMainContainer extends Component {
 
     constructor(props){
@@ -31,9 +32,11 @@ class WeatherMainContainer extends Component {
         };
     }
     componentDidMount(){
+        // Automatically redirect to San Jose onLoad
         if (!this.props.routerProps.location.search){
             this.props.routerProps.history.push('/forecast?lat='+initLatLng.lat+'&lng='+initLatLng.lng);
         }
+        // Loads the lat lng in the URL
         const queryParams = queryString.parse(this.props.routerProps.location.search);
         this.props.fetchWeather({
             lat: queryParams.lat,
@@ -41,6 +44,7 @@ class WeatherMainContainer extends Component {
         });
         this.setState({lat: queryParams.lat, lng: queryParams.lng});
     }
+
     render() {
         return (
             <Wrapper>

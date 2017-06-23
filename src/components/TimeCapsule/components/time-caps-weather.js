@@ -37,8 +37,8 @@ const TemperatureDiv = glamorous.div({
     fontSize: '3rem',
     borderBottom: '0.3pt solid lightgrey'
 });
-// Component for displaying the selected day's weather data 
 
+// Component for displaying the selected day's weather data 
 const TimeCapsuleWeatherComponent =(props) => {
     return (
         <div>

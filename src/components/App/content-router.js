@@ -10,6 +10,7 @@ const Content = glamorous.div({
   marginTop: 70
 });
 
+// Handles all the client side routing
 const ContentRouter = () => (
   <Content>
     <Switch>

@@ -22,7 +22,6 @@ const Bolder = glamorous.span({
     fontSize: '1.01rem'
 });
 
-// Duplicted. Don't forget to remove it!
 const ListItem = glamorous.div({
     borderBottom: '0.3pt solid lightgrey',
     display: 'flex',
@@ -35,13 +34,13 @@ const ListItem = glamorous.div({
     textAlign: 'justify'
 });
 
-// Duplicated. Don't forget to remove it!
 const StyledH3 = glamorous.h3({
     fontWeight: 100,
     borderBottom: '0.3pt solid lightgrey',
     padding: 5
 });
 
+// Shows Current weather
 const DayWeatherComponent = (props) => {
     const { currentWeather } = props;
     return (

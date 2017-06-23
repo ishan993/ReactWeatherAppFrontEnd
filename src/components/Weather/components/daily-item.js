@@ -15,7 +15,6 @@ const flexSpan = glamorous({
     textAlign: 'left'
 });
 
-// Duplicated.. Don't forget to remove it later
 const ListItem = glamorous.div({
      '@media(min-width: 840px)': {
         width: '90%',
@@ -32,6 +31,7 @@ const ListItem = glamorous.div({
     textAlign: 'left'
 });
 
+//  List item for future forecast row
 const DailyItem = (props) => {
     const { dailyData } = props;
     return (

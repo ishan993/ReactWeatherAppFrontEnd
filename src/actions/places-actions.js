@@ -35,6 +35,8 @@ export const fetchSuggestions = (value) => {
     };
 };
 
+
+// Fetches LatLng for the given placeId
 export const fetchLatLng = (placeId) => {
     const URL = ROOT_URL+'latlng';
     const latLngRequest = axios.get(URL, {
