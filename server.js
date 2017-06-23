@@ -20,7 +20,7 @@ app.get('/*', (req, res) => {
   console.log('--------->>>>>>>serving file');
   res.status(200);
   res.type('text/html');
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.send(html);
 });
 
 app.get('/forecast', (req, res) => {
