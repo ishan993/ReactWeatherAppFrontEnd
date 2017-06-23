@@ -20,7 +20,7 @@ app.get('/*', (req, res) => {
   console.log('--------->>>>>>>serving file');
   res.status(200);
   res.type('text/html');
-  res.send(html);
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 app.get('/forecast', (req, res) => {
@@ -31,3 +31,4 @@ app.get('/forecast', (req, res) => {
 });
 
 app.listen(port);
+console.log('----------Server Started---------');
