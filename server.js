@@ -16,7 +16,7 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, '/build')));
 
-app.get('/', (req, res) => {
+app.get('/*', (req, res) => {
   res.status(200);
   res.type('text/html');
   res.send(html);
