@@ -14,7 +14,6 @@ export const setPlaceId = (placeId) => {
     });
 };
 
-
 // Action creator that retrieves 5 suggestions at a time
 // calls GoogleMaps' AutoComplete API in the backend 
 export const fetchSuggestions = (value) => {
@@ -31,7 +30,7 @@ export const fetchSuggestions = (value) => {
                 places: response.data.result
             });
         }).catch((error)=>{
-            throw new Error(error.message.predictions);
+            console.log(JSON.stringify(error));
         });
     };
 };

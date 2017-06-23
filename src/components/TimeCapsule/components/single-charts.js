@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { LineChart, Line, CartesianGrid, XAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
-
+// Rendering a single chart
 const SingleChart = (props) => {
     const {name} = props;
     return (

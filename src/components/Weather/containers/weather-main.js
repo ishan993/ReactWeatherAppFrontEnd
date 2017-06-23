@@ -23,6 +23,13 @@ const initLatLng = {
 
 class WeatherMainContainer extends Component {
 
+    constructor(props){
+        super(props);
+        this.state={
+            lat: 37.3362,
+            lng: -121.8906
+        };
+    }
     componentDidMount(){
         if (!this.props.routerProps.location.search){
             this.props.routerProps.history.push('/forecast?lat='+initLatLng.lat+'&lng='+initLatLng.lng);
@@ -32,12 +39,17 @@ class WeatherMainContainer extends Component {
             lat: queryParams.lat,
             lng: queryParams.lng
         });
+        this.setState({lat: queryParams.lat, lng: queryParams.lng});
     }
     render() {
         return (
             <Wrapper>
                 <SearchBar fetchWeather={this.props.fetchWeather} history={this.props.routerProps.history} />
-                {!this.props.isLoading && this.props.weatherProps ? <WeatherContainer weatherProps={this.props.weatherProps}/> : <LoadingComponent />}
+                {!this.props.isLoading && this.props.weatherProps ?
+                    <WeatherContainer weatherProps={this.props.weatherProps}/> :
+                    <LoadingComponent isServerConnected={this.props.isServerConnected}
+                        retryFunction={this.props.fetchWeather} retryProps={{lat: this.state.lat,
+                            lng: this.state.lng}}/>}
             </Wrapper>
         );
     }
@@ -49,14 +61,16 @@ WeatherMainContainer.propTypes = {
     placeId: PropTypes.string.isRequired,
     fetchWeather: PropTypes.func.isRequired,
     weatherProps: PropTypes.object,
-    routerProps: PropTypes.object
+    routerProps: PropTypes.object,
+    isServerConnected: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => {
     return ({
         isLoading: state.displayProps.isLoading,
         placeId: state.placesProps.placeId,
-        weatherProps: state.weatherProps.forecast
+        weatherProps: state.weatherProps.forecast,
+        isServerConnected: state.displayProps.isServerConnected
      });
 };
 

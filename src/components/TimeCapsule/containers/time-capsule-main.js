@@ -39,9 +39,7 @@ export class TimeCapsuleMainContainer extends Component {
             startDate: moment()
         };
     }
-    componentWillMount(){
-        //this.props.hideloadingGraphic();
-    }
+   
     onChange(date){
         this.setState({ startDate: date});
         const tempDate = new Date(date).getTime()/1000;

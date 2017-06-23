@@ -26,7 +26,6 @@ export const saveSearchHistory = (searchObj, shouldDelete) => {
     if (!shouldDelete){
         searchHistory.push(searchObj);
     }
-
     // should add a check here to limit the number of history items saved
     // don't want the number to be in the hundreds
     localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
