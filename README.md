@@ -1,3 +1,5 @@
+Here's a link to the demo: http://skycast-frontend.herokuapp.com
+
 A React and Redux Starter kit built from FacebookIncubator's simple React Starter kit 
                        so I don't have to start from scratch every time.               
 
